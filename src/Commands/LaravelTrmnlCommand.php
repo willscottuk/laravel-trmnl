@@ -30,8 +30,6 @@ class LaravelTrmnlCommand extends Command
 
         $this->table($headers, $data);
 
-
-
         return self::SUCCESS;
     }
 }
