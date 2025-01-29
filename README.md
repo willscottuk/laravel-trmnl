@@ -72,8 +72,7 @@ php artisan vendor:publish --tag="trmnl-views"
 ## Usage
 
 ```php
-$laravelTrmnl = new Bnussbau\LaravelTrmnl();
-echo $laravelTrmnl->echoPhrase('Hello, Bnussbau!');
+// TODO
 ```
 
 ## Testing
