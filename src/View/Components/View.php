@@ -6,9 +6,7 @@ use Illuminate\View\Component;
 
 class View extends Component
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function render()
     {

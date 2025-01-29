@@ -2,9 +2,9 @@
 
 namespace Bnussbau\LaravelTrmnl\Tests;
 
+use Bnussbau\LaravelTrmnl\LaravelTrmnlServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Bnussbau\LaravelTrmnl\LaravelTrmnlServiceProvider;
 
 class TestCase extends Orchestra
 {

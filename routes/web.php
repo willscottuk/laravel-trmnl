@@ -36,7 +36,7 @@ if (config('trmnl.plugin_type') === 'public') {
                 'email' => $user['email'],
                 'tz' => $user['tz'],
                 'uuid' => $user['uuid'],
-                //'access_token' => $user['access_token'],
+                // 'access_token' => $user['access_token'],
             ]);
 
             return response()->json([
@@ -57,6 +57,7 @@ if (config('trmnl.plugin_type') === 'public') {
         Route::post('/auth/destroy', function (Request $request) {
             $uuid = $request->json('user_uuid');
             TrmnlUser::where('uuid', $uuid)->delete();
+
             return response()->json([
                 'success' => true,
             ]);

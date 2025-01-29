@@ -12,8 +12,9 @@ class LaravelTrmnlCommand extends Command
 
     public function handle(): int
     {
-        if (config('trmnl.plugin_type') === 'private'){
+        if (config('trmnl.plugin_type') === 'private') {
             $this->info('Set TRMNL_PLUGIN_TYPE=public in your .env to expose plugin configuration routes');
+
             return self::SUCCESS;
         }
         $this->info('Go to https://usetrmnl.com/plugins/my/new and enter the following values:');
