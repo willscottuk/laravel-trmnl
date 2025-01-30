@@ -1,4 +1,5 @@
 
+@props(['size'=>'full'])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -11,7 +12,7 @@
 </head>
 <body class="environment trmnl">
 <div class="screen">
-    <div class="view view--full">
+    <div class="view view--{{$size}}">
         {{ $slot }}
     </div>
 </div>
