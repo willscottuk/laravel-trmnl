@@ -4,7 +4,7 @@ namespace Bnussbau\LaravelTrmnl\Commands;
 
 use Illuminate\Console\Command;
 
-class LaravelTrmnlCommand extends Command
+class PrintPublicPluginConfigurationCommand extends Command
 {
     public $signature = 'trmnl:plugin:configuration';
 

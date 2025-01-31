@@ -2,7 +2,7 @@
 
 namespace Bnussbau\LaravelTrmnl;
 
-use Bnussbau\LaravelTrmnl\Commands\LaravelTrmnlCommand;
+use Bnussbau\LaravelTrmnl\Commands\PrintPublicPluginConfigurationCommand;
 use Bnussbau\LaravelTrmnl\View\Components\Column;
 use Bnussbau\LaravelTrmnl\View\Components\Columns;
 use Bnussbau\LaravelTrmnl\View\Components\Layout;
@@ -27,7 +27,7 @@ class LaravelTrmnlServiceProvider extends PackageServiceProvider
             ->hasViews()
             ->discoversMigrations()
             ->hasRoute('web')
-            ->hasCommand(LaravelTrmnlCommand::class);
+            ->hasCommand(PrintPublicPluginConfigurationCommand::class);
     }
 
     public function packageBooted()

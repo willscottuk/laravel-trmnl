@@ -1,4 +1,4 @@
-# Develop TRMNL plugins with Laravel
+# Laravel TRMNL - Develop TRMNL plugins with Laravel
 
 ⚠️ This is work in progress and not yet ready for production use. ⚠️
 
@@ -7,10 +7,19 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/bnussbau/laravel-trmnl/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/bnussbau/laravel-trmnl/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/laravel-trmnl.svg?style=flat-square)](https://packagist.org/packages/bnussbau/laravel-trmnl)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Laravel TRMNL is a package that offers both public and private plugin capabilities with support for real-time updates through webhooks or polling strategies. For public plugins it features support for OAuth integration. UI Prototyping is easy by using the provided Blade components.
 
 ## Buy me a coffee
 –
+
+## Features
+
+
+- 🔌 Public and private plugin support
+- 🔄 Updates via webhooks or polling
+- 🎨 Blade Components using the TRMNL Design System
+- 🎯 OAuth integration support for public plugins
+- 📱 Helpers for Responsive layouts
 
 ## Installation
 
@@ -20,7 +29,7 @@ You can install the package via composer:
 composer require bnussbau/laravel-trmnl
 ```
 
-You can publish and run the migrations with:
+If developing a public plugin with OAuth support, publish and run the migrations with:
 
 ```bash
 php artisan vendor:publish --tag="trmnl-migrations"
@@ -33,8 +42,7 @@ Optionally, you can publish the config file with:
 php artisan vendor:publish --tag="trmnl-config"
 ```
 
-This is the contents of the published config file:
-
+This are the contents of the published config file:
 ```php
 return [
     /*
@@ -69,10 +77,51 @@ Optionally, you can publish the views using
 php artisan vendor:publish --tag="trmnl-views"
 ```
 
+## Configuration
+
+The package can be configured through environment variables:
+
+```env
+TRMNL_PLUGIN_TYPE=private|public
+TRMNL_DATA_STRATEGY=polling|webhook
+TRMNL_WEBHOOK_URL=              #see TRMNL Dashboard
+TRMNL_OAUTH_CLIENT_ID=          #see TRMNL Dashboard
+TRMNL_OAUTH_CLIENT_SECRET=      #see TRMNL Dashboard
+```
+
 ## Usage
 
+### Data Updates
+
+For webhook-based updates:
+
 ```php
-// TODO
+use Bnussbau\LaravelTrmnl\Jobs\UpdateScreenContentJob;
+
+// Dispatch update to TRMNL
+UpdateScreenContentJob::dispatch([
+    'key' => 'value',
+    // ... other variables
+]);
+```
+
+## Available Blade Components
+- [see TRMNL Design System](https://usetrmnl.com/framework)
+- [resources/views/components](resources/views/components)
+
+## Usage
+
+### Basic Layout
+
+```blade
+<x-trmnl::view>
+    <x-trmnl::layout class="gap--large">
+        <x-trmnl::columns>
+            <!-- Your content here -->
+        </x-trmnl::columns>
+    </x-trmnl::layout>
+    <x-trmnl::title-bar/>
+</x-trmnl::view>
 ```
 
 ## Testing
