@@ -15,10 +15,10 @@ Laravel TRMNL is a package that offers both public and private plugin capabiliti
 ## Features
 
 
-- 🔌 Public and private plugin support
-- 🔄 Updates via webhooks or polling
-- 🎨 Blade Components using the TRMNL Design System
-- 🎯 OAuth integration support for public plugins
+- 🔌 Public and private plugin support [(docs)](https://help.usetrmnl.com/en/articles/10122094-plugin-recipes), [(docs)](https://docs.usetrmnl.com/go/plugin-marketplace/introduction)
+- 🔄 Support for updates via webhooks or polling [(docs)](https://help.usetrmnl.com/en/articles/9510536-private-plugins)
+- 🎨 Blade Components on top of the TRMNL Design System [(docs)](https://usetrmnl.com/framework)
+- 🎯 OAuth integration support for public plugins [(docs)](https://docs.usetrmnl.com/go/plugin-marketplace/plugin-installation-flow)
 - 📱 Helpers for Responsive layouts
 
 ## Installation
@@ -79,14 +79,16 @@ php artisan vendor:publish --tag="trmnl-views"
 
 ## Configuration
 
+### Default Environment Variables
+
 The package can be configured through environment variables:
 
 ```env
-TRMNL_PLUGIN_TYPE=private|public
-TRMNL_DATA_STRATEGY=polling|webhook
-TRMNL_WEBHOOK_URL=              #see TRMNL Dashboard
-TRMNL_OAUTH_CLIENT_ID=          #see TRMNL Dashboard
-TRMNL_OAUTH_CLIENT_SECRET=      #see TRMNL Dashboard
+TRMNL_PLUGIN_TYPE=              # private | public
+TRMNL_DATA_STRATEGY=            # polling | webhook
+TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard
+TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard
+TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
 ```
 
 ## Usage
@@ -105,11 +107,13 @@ UpdateScreenContentJob::dispatch([
 ]);
 ```
 
-## Available Blade Components
+## Blade Components
 - [see TRMNL Design System](https://usetrmnl.com/framework)
 - [resources/views/components](resources/views/components)
 
-## Usage
+Blade Compontens can help you generate markup code. Alternatively you can just use the native CSS classes from the TRMNL Design System.
+
+### Usage
 
 ### Basic Layout
 
