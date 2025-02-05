@@ -32,7 +32,7 @@ composer require bnussbau/laravel-trmnl
 
 ```bash
 #before release
-composer require bnussbau/laravel-trmnl:dev-main
+composer require bnussbau/laravel-trmnl:^0.1.0-alpha
 ```
 
 If developing a public plugin with OAuth support, publish and run the migrations with:
