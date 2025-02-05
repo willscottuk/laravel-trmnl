@@ -9,8 +9,9 @@
 
 Laravel TRMNL is a package that offers both public and private plugin capabilities with support for real-time updates through webhooks or polling strategies. For public plugins it features support for OAuth integration. UI Prototyping is easy by using the provided Blade components.
 
-## Buy me a coffee
-–
+## Support ❤️
+Support the development of this package by using referral link [https://usetrmnl.com/?ref=laravel-trmnl](https://usetrmnl.com/?ref=laravel-trmnl) when buying a TRMNL device. 
+Using code `laravel-trmnl` in checkout, gets you a **discount** of $15.
 
 ## Features
 
@@ -27,6 +28,11 @@ You can install the package via composer:
 
 ```bash
 composer require bnussbau/laravel-trmnl
+```
+
+```bash
+#before release
+composer require bnussbau/laravel-trmnl:dev-main
 ```
 
 If developing a public plugin with OAuth support, publish and run the migrations with:
