@@ -1,7 +1,8 @@
 <?php
 
-use Bnussbau\LaravelTrmnl\TrmnlUser;
+use Bnussbau\LaravelTrmnl\Models\TrmnlUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
@@ -25,19 +26,29 @@ if (config('trmnl.plugin_type') === 'public') {
             ]);
             $accessToken = $oauthRes->json('access_token');
 
+            TrmnlUser::create([
+                'access_token' => $accessToken,
+                'user_id' => Auth::id(),
+            ]);
+
             return redirect($callbackUrl);
         })->name('trmnl.auth.create');
 
         Route::post('/auth/install', function (Request $request) {
             $user = $request->json('user');
+            // get header Authorization
+            $access_token = str_replace('Bearer ', '', $request->header('Authorization'));
 
-            TrmnlUser::create([
-                'name' => $user['name'],
-                'email' => $user['email'],
-                'tz' => $user['tz'],
-                'uuid' => $user['uuid'],
-                // 'access_token' => $user['access_token'],
-            ]);
+            TrmnlUser::where('access_token', $access_token)
+                ->where('uuid', null)
+                ->update(
+                    [
+                        'name' => $user['name'],
+                        'email' => $user['email'],
+                        'tz' => $user['tz'],
+                        'uuid' => $user['uuid'],
+                    ]
+                );
 
             return response()->json([
                 'success' => true,
@@ -46,17 +57,21 @@ if (config('trmnl.plugin_type') === 'public') {
 
         Route::get('/manage', function (Request $request) {
             $uuid = $request->query('uuid');
-            $user = TrmnlUser::where('uuid', $uuid)->first();
+            $user = TrmnlUser::where('uuid', $uuid)->firstOrFail();
 
             return response()->json([
                 'success' => true,
-                'user' => $user,
+                'authenticated' => $user->email,
             ]);
         })->name('trmnl.manage');
 
         Route::post('/auth/destroy', function (Request $request) {
+            $access_token = str_replace('Bearer ', '', $request->header('Authorization'));
+
             $uuid = $request->json('user_uuid');
-            TrmnlUser::where('uuid', $uuid)->delete();
+            TrmnlUser::where('uuid', $uuid)
+                ->where('access_token', $access_token)
+                ->delete();
 
             return response()->json([
                 'success' => true,

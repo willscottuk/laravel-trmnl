@@ -39,4 +39,4 @@ it('throws exception when webhook URL is not set', function () {
 
     expect(fn () => UpdateScreenContentJob::dispatch($content))
         ->toThrow(Exception::class, 'Aborting Job. Webhook URL not set.');
-}); 
+});
