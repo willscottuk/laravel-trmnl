@@ -37,6 +37,6 @@ class LaravelTrmnlServiceProvider extends PackageServiceProvider
             return new TrmnlGuard($app->make('request'));
         });
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/auth.guards.php', 'auth.guards');
+        $this->mergeConfigFrom(__DIR__.'/../config/auth.guards.php', 'auth.guards');
     }
 }

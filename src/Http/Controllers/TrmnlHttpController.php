@@ -22,7 +22,7 @@ class TrmnlHttpController extends Controller
         $callbackUrl = $request->query('installation_callback_url');
         $code = $request->query('code');
 
-        $oauthRes = Http::post(config('trmnl.server.base_url') . '/oauth/token', [
+        $oauthRes = Http::post(config('trmnl.server.base_url').'/oauth/token', [
             'code' => $code,
             'client_id' => config('trmnl.oauth_client_id'),
             'client_secret' => config('trmnl.oauth_client_secret'),
@@ -62,7 +62,7 @@ class TrmnlHttpController extends Controller
     {
         $trmnlUser = Auth::guard('trmnl')->user();
 
-        if (!$trmnlUser) {
+        if (! $trmnlUser) {
             // To not prevent uninstalls which are not present in the database
             return response()->json([
                 'success' => true,
@@ -81,18 +81,18 @@ class TrmnlHttpController extends Controller
         $uuid = $request->query('uuid');
         $trmnlUser = TrmnlUser::where('uuid', $uuid)->first();
 
-        if (!$uuid || !$trmnlUser) {
+        if (! $uuid || ! $trmnlUser) {
             return response()->json([
                 'success' => false,
                 'message' => 'Invalid UUID',
             ], 404);
         }
 
-        return response("The plugin is connected successfully, but the publisher has not yet implemented a view to configure settings.");
+        return response('The plugin is connected successfully, but the publisher has not yet implemented a view to configure settings.');
     }
 
     public function docs()
     {
-        return response("The publisher of the TRMNL plugin has not yet published docs.");
+        return response('The publisher of the TRMNL plugin has not yet published docs.');
     }
 }

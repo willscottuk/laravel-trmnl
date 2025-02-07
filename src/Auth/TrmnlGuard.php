@@ -12,6 +12,7 @@ class TrmnlGuard implements Guard
     use GuardHelpers;
 
     protected $request;
+
     protected $provider;
 
     public function __construct(Request $request)
@@ -23,7 +24,7 @@ class TrmnlGuard implements Guard
     {
         $token = str_replace('Bearer ', '', $this->request->header('Authorization'));
 
-        if (!$token) {
+        if (! $token) {
             return null;
         }
 
@@ -34,7 +35,7 @@ class TrmnlGuard implements Guard
     {
         $token = str_replace('Bearer ', '', $this->request->header('Authorization'));
 
-        if (!$token) {
+        if (! $token) {
             return false;
         }
 
