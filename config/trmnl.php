@@ -26,4 +26,14 @@ return [
     */
     'data_strategy' => env('TRMNL_DATA_STRATEGY', 'polling'),
     'webhook_url' => env('TRMNL_WEBHOOK_URL'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Server
+    |--------------------------------------------------------------------------
+    | Change this if you are using a custom TRMNL server.
+    */
+    'server' => [
+        'base_url' => env('TRMNL_SERVER_BASE_URL', 'https://usetrmnl.com'),
+    ]
 ];
