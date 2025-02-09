@@ -20,6 +20,7 @@ class LaravelTrmnl extends Facade
         if (config('trmnl.plugin_type') === 'public') {
             return HtmlDomParser::str_get_html($renderedView)->findOne('div.screen')->innerHtml();
         }
+
         return HtmlDomParser::str_get_html($renderedView)->findOne('div.view')->innerHtml();
     }
 
