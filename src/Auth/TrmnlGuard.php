@@ -28,7 +28,7 @@ class TrmnlGuard implements Guard
             return null;
         }
 
-        return TrmnlUser::where('access_token', $token)->first();
+        return TrmnlUser::where('access_token', $token)->first()->user()->first();
     }
 
     public function validate(array $credentials = [])

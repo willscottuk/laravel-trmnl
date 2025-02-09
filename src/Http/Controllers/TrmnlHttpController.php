@@ -60,10 +60,19 @@ class TrmnlHttpController extends Controller
 
     public function destroy(Request $request)
     {
-        $trmnlUser = Auth::guard('trmnl')->user();
+        $access_token = str_replace('Bearer ', '', $request->header('Authorization'));
+
+        $trmnlUser = TrmnlUser::where('access_token', $access_token)
+            ->where('uuid', $request->input('user_uuid'))
+            ->first();
 
         if (! $trmnlUser) {
-            // To not prevent uninstalls which are not present in the database
+            \Log::warning('TRMNL uninstall request received, but user not found in database', [
+                'user_uuid' => $request->input('user_uuid'),
+            ]);
+
+            // Returning an error may prevent uninstalls
+            // which are not present in the database
             return response()->json([
                 'success' => true,
             ]);
