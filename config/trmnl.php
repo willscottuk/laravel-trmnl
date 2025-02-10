@@ -36,4 +36,14 @@ return [
     'server' => [
         'base_url' => env('TRMNL_SERVER_BASE_URL', 'https://usetrmnl.com'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Feature Flags
+    |--------------------------------------------------------------------------
+    | Features not yet ready for stable release.
+    */
+    'feature_flags' => [
+        'public_plugin' => env('TRMNL_FEATURE_PUBLIC_PLUGIN', false),
+    ],
 ];
