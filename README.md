@@ -1,18 +1,16 @@
 # Laravel TRMNL - Develop TRMNL plugins with Laravel
 
-⚠️ This is work in progress and not yet ready for production use. ⚠️
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/bnussbau/laravel-trmnl.svg?style=flat-square)](https://packagist.org/packages/bnussbau/laravel-trmnl)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/bnussbau/laravel-trmnl/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/bnussbau/laravel-trmnl/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/bnussbau/laravel-trmnl/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/bnussbau/laravel-trmnl/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/laravel-trmnl.svg?style=flat-square)](https://packagist.org/packages/bnussbau/laravel-trmnl)
 
-Laravel TRMNL is a package that offers both public and private plugin capabilities with support for real-time updates through webhooks or polling strategies. For public plugins it features support for OAuth integration. UI Prototyping is easy by using the provided Blade components.
+Laravel TRMNL is a package designed to streamline the development of both public and private TRMNL plugins. It supports data updates via webhooks or polling. For public plugins, it also provides built-in support for the TRMNL OAuth flow. Additionally, UI prototyping is made easier with the included Blade components.
 
 ## Support ❤️
-Support the development of this package by using referral link [https://usetrmnl.com/?ref=laravel-trmnl](https://usetrmnl.com/?ref=laravel-trmnl) when buying a TRMNL device. 
-Using code `laravel-trmnl` in checkout, gets you a **discount** of $15.
-
+Support the development of this package by purchasing a TRMNL device through our referral link: https://usetrmnl.com/?ref=laravel-trmnl.
+At checkout, use the code `laravel-trmnl` to receive a $15 **discount** on your purchase.
 ## Features
 
 
@@ -20,7 +18,7 @@ Using code `laravel-trmnl` in checkout, gets you a **discount** of $15.
 - 🔄 Support for updates via webhooks or polling [(docs)](https://help.usetrmnl.com/en/articles/9510536-private-plugins)
 - 🎨 Blade Components on top of the TRMNL Design System [(docs)](https://usetrmnl.com/framework)
 - 🎯 OAuth integration support for public plugins [(docs)](https://docs.usetrmnl.com/go/plugin-marketplace/plugin-installation-flow)
-- 📱 Helpers for Responsive layouts
+- 📱 Render Helpers for responsive layouts
 
 ## Installation
 
@@ -30,54 +28,29 @@ You can install the package via composer:
 composer require bnussbau/laravel-trmnl
 ```
 
-```bash
-#before release
-composer require bnussbau/laravel-trmnl:^0.1.0-beta
+### Default Environment Variables
+
+```dotenv
+TRMNL_PLUGIN_TYPE=              # private | public
+TRMNL_DATA_STRATEGY=            # polling | webhook
+TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard [Private Plugins]
+TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard [Public Plugins]
+TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard [Public Plugins]
 ```
 
-If developing a public plugin with OAuth support, publish and run the migrations with:
+### Optional Steps
 
-```bash
-php artisan vendor:publish --tag="trmnl-migrations"
-php artisan migrate
-```
+#### Publish Config
 
-Optionally, you can publish the config file with:
+Publish the config file using:
 
 ```bash
 php artisan vendor:publish --tag="trmnl-config"
 ```
 
-This are the contents of the published config file:
-```php
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Plugin Type
-    |--------------------------------------------------------------------------
-    |
-    | Specifies if your TRMNL plugin is public or private; default is private.
-    | If set to public, the authentication routes will be exposed.
-    | Publish and run migrations to create the necessary tables.
-    */
-    'plugin_type' => env('TRMNL_PLUGIN_TYPE', 'private'),
+#### Publish Views
 
-    /*
-    |--------------------------------------------------------------------------
-    | Data Strategy
-    |--------------------------------------------------------------------------
-    |
-    | TRMNL supports two data strategies: polling and webhook.
-    | Default is polling.
-    | If your plugin type is private, you can set the data strategy to webhook.
-    | If you set the data strategy to webhook, you must provide a webhook URL.
-    */
-    'data_strategy' => env('TRMNL_DATA_STRATEGY', 'polling'),
-    'webhook_url' => env('TRMNL_WEBHOOK_URL'),
-];
-```
-
-Optionally, you can publish the views using
+Publish the views using:
 
 ```bash
 php artisan vendor:publish --tag="trmnl-views"
@@ -89,7 +62,7 @@ php artisan vendor:publish --tag="trmnl-views"
 
 The package can be configured through environment variables:
 
-```env
+```dotenv
 TRMNL_PLUGIN_TYPE=              # private | public
 TRMNL_DATA_STRATEGY=            # polling | webhook
 TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard
@@ -97,20 +70,81 @@ TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard
 TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
 ```
 
-## Usage
+## Plugin Development
 
-### Data Updates
+## Private Plugins
+By default, plugins are private. To configure your settings, add the following environment variables to your `.env` file:
+```dotenv
+TRMNL_PLUGIN_TYPE=private
+TRMNL_DATA_STRATEGY=webhook # or polling
+TRMNL_WEBHOOK_URL=          # grab from TRMNL Dashboard if using webhook
+```
 
-For webhook-based updates:
+### Update Data
+Laravel TRMNL provides the `UpdateScreenContentJob` to facilitate sending data updates to TRMNL servers. 
 
+#### Example usage
 ```php
-use Bnussbau\LaravelTrmnl\Jobs\UpdateScreenContentJob;
-
-// Dispatch update to TRMNL
-UpdateScreenContentJob::dispatch([
+UpdateScreenContentJob::dispatchSync([
     'key' => 'value',
     // ... other variables
 ]);
+```
+
+### Example using a Model and Pagination
+```php
+UpdateScreenContentJob::dispatchSync(
+    Journey::whereNotIn('track', [1, 2])
+        ->whereBetween('timestamp_planned', [now()->setTimezone('Europe/Vienna')
+            ->addMinutes(15), now()->setTimezone('Europe/Vienna')->addHours(2)])
+        ->paginate(8)
+        ->toArray()
+);
+```        
+
+Use the markup editor on the TRMNL private plugin webapp or use the `stripMarkup()` Method on the `Trmnl` 
+Facade to render markup which you can copy into the editor. See Section Blade Components. 
+
+## Public Plugins
+⚠️ This is work in progress and may not be ready for production use. ⚠️
+
+Refer to the [“Plugin Marketplace” section](https://docs.usetrmnl.com/go/plugin-marketplace/introduction) in the TRMNL documentation, paying close attention to the authentication flow. Always verify the authorization token for incoming manage or render requests to prevent security issues.
+
+To enable this feature, add the following flag to your .env file:
+
+```env
+TRMNL_FEATURE_PUBLIC_PLUGIN=1
+```
+### Configuration
+
+```dotenv
+TRMNL_PLUGIN_TYPE=public
+TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard
+TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
+```
+
+### Render Markup
+
+Public plugins need to provide a render endpoint, which returns markup for all screen layouts.
+You can use the `Trmnl::renderScreen()` as helper.
+
+```php
+Route::post('/render', function () {
+
+    // validate Authorization
+    if (! Auth::guard('trmnl')->check()) {
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
+
+    return response()->json(
+        Trmnl::renderScreen(
+            'trmnl.full',
+            'trmnl.half_horizontal',
+            'trmnl.half_vertical',
+            'trmnl.quadrant'
+        )
+    );
+});
 ```
 
 ## Blade Components
@@ -125,9 +159,24 @@ Blade Compontens can help you generate markup code. Alternatively you can just u
 
 ```blade
 <x-trmnl::view>
-    <x-trmnl::layout class="gap--large">
+    <x-trmnl::layout>
+        <!-- Your content here -->
+    </x-trmnl::layout>
+    <x-trmnl::title-bar/>
+</x-trmnl::view>
+```
+
+### Quote Example
+
+```blade
+<x-trmnl::view>
+    <x-trmnl::layout>
         <x-trmnl::columns>
-            <!-- Your content here -->
+            <x-trmnl::markdown gapSize="large">
+                <x-trmnl::title>Motivational Quote</x-trmnl::title>
+                <x-trmnl::content>“I love inside jokes. I hope to be a part of one someday.”</x-trmnl::content>
+                <x-trmnl::label variant="underline">Michael Scott</x-trmnl::label>
+            </x-trmnl::markdown>
         </x-trmnl::columns>
     </x-trmnl::layout>
     <x-trmnl::title-bar/>
@@ -140,17 +189,22 @@ Blade Compontens can help you generate markup code. Alternatively you can just u
 composer test
 ```
 
-## Changelog
+[//]: # (## Changelog)
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+[//]: # ()
+[//]: # (Please see [CHANGELOG]&#40;CHANGELOG.md&#41; for more information on what has changed recently.)
 
-## Contributing
+[//]: # ()
+[//]: # (## Contributing)
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+[//]: # ()
+[//]: # (Please see [CONTRIBUTING]&#40;CONTRIBUTING.md&#41; for details.)
 
-## Security Vulnerabilities
+[//]: # ()
+[//]: # (## Security Vulnerabilities)
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+[//]: # ()
+[//]: # (Please review [our security policy]&#40;../../security/policy&#41; on how to report security vulnerabilities.)
 
 ## Credits
 
