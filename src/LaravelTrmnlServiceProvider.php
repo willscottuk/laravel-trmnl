@@ -27,7 +27,7 @@ class LaravelTrmnlServiceProvider extends PackageServiceProvider
             ->hasCommand(PrintPublicPluginConfigurationCommand::class);
     }
 
-    public function packageBooted()
+    public function packageBooted(): void
     {
         // Register the components with the 'trmnl' prefix
         Blade::componentNamespace('Bnussbau\\LaravelTrmnl\\View\\Components', 'trmnl');

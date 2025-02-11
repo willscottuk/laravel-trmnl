@@ -49,7 +49,7 @@ class TrmnlHttpController extends Controller
             ->update([
                 'name' => $user['name'],
                 'email' => $user['email'],
-                'tz' => $user['tz'],
+                'tz' => $user['time_zone_iana'],
                 'uuid' => $user['uuid'],
             ]);
 
