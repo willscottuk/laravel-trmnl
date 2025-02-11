@@ -122,6 +122,13 @@ TRMNL_PLUGIN_TYPE=public
 TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard
 TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
 ```
+### Publish & Run Migrations
+
+```bash
+php artisan vendor:publish --tag="trmnl-migrations"
+```
+
+
 
 ### Render Markup
 
@@ -132,7 +139,7 @@ You can use the `Trmnl::renderScreen()` as helper.
 Route::post('/render', function () {
 
     // validate Authorization
-    if (! Auth::guard('trmnl')->check()) {
+    if (! Auth::guard('trmnl')->validate()) {
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
@@ -144,7 +151,9 @@ Route::post('/render', function () {
             'trmnl.quadrant'
         )
     );
-});
+})->name('trmnl.render');
+// make sure to not verify CSRF Token for this route
+// ->withoutMiddleware([Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
 ```
 
 ## Blade Components
