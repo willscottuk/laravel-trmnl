@@ -3,6 +3,7 @@
 namespace Bnussbau\LaravelTrmnl\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Route;
 
 class PrintPublicPluginConfigurationCommand extends Command
 {
@@ -24,7 +25,7 @@ class PrintPublicPluginConfigurationCommand extends Command
             ['Installation URL', route('trmnl.auth.create')],
             ['Installation Success Webhook URL', route('trmnl.auth.install')],
             ['Plugin Management URL', route('trmnl.manage')],
-            ['Plugin Markup URL', '<Your Blade View URL>'],
+            ['Plugin Render URL', (Route::has('trmnl.render')) ? route('trmnl.render') : 'Provide a route with name trmnl.render.'],
             ['Uninstallation Webhook URL', route('trmnl.auth.destroy')],
             ['Knowledge Base URL', route('trmnl.docs')],
         ];

@@ -124,11 +124,11 @@ TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
 ```
 ### Publish & Run Migrations
 
+Publishes the database table required for storing authentication data.
+
 ```bash
 php artisan vendor:publish --tag="trmnl-migrations"
 ```
-
-
 
 ### Render Markup
 
@@ -155,6 +155,10 @@ Route::post('/render', function () {
 // make sure to not verify CSRF Token for this route
 // ->withoutMiddleware([Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
 ```
+
+## Publish
+
+Run command `php artisan trmnl:plugin:configuration` to print the URLs required for plugin submission.
 
 ## Blade Components
 - [see TRMNL Design System](https://usetrmnl.com/framework)
