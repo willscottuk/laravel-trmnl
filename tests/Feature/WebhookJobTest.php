@@ -40,3 +40,18 @@ it('throws exception when webhook URL is not set', function () {
     expect(fn () => UpdateScreenContentJob::dispatch($content))
         ->toThrow(Exception::class, 'Aborting Job. Webhook URL not set.');
 });
+
+it('allows overriding webhook URL in constructor', function () {
+    Http::fake([
+        'custom.example.com/*' => Http::response(['status' => 'success'], 200),
+    ]);
+
+    $content = ['key' => 'value'];
+    $customUrl = 'https://custom.example.com/webhook';
+    UpdateScreenContentJob::dispatch($content, $customUrl);
+
+    Http::assertSent(function ($request) use ($customUrl) {
+        return $request->url() === $customUrl &&
+            $request['merge_variables']['key'] === 'value';
+    });
+});
