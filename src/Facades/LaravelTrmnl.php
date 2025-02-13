@@ -30,13 +30,14 @@ class LaravelTrmnl extends Facade
     public static function renderScreen(?string $viewMarkupFull = null,
         ?string $viewMarkupHalfHorizontal = null,
         ?string $viewMarkupHalfVertical = null,
-        ?string $viewMarkupQuadrant = null): array
-    {
+        ?string $viewMarkupQuadrant = null,
+        $data = []
+    ): array {
         return [
-            'markup' => self::stripMarkup(view($viewMarkupFull)->render()),
-            'markup_half_horizontal' => self::stripMarkup(view($viewMarkupHalfHorizontal)->render()),
-            'markup_half_vertical' => self::stripMarkup(view($viewMarkupHalfVertical)->render()),
-            'markup_quadrant' => self::stripMarkup(view($viewMarkupQuadrant)->render()),
+            'markup' => self::stripMarkup(view($viewMarkupFull, $data)->render()),
+            'markup_half_horizontal' => self::stripMarkup(view($viewMarkupHalfHorizontal, $data)->render()),
+            'markup_half_vertical' => self::stripMarkup(view($viewMarkupHalfVertical, $data)->render()),
+            'markup_quadrant' => self::stripMarkup(view($viewMarkupQuadrant, $data)->render()),
         ];
     }
 }
