@@ -8,6 +8,8 @@
 
 Laravel TRMNL is a package designed to streamline the development of both public and private TRMNL plugins. It supports data updates via webhooks or polling. For public plugins, it also provides built-in support for the TRMNL OAuth flow. Additionally, UI prototyping is made easier with the included Blade components.
 
+If you are looking for a Laravel based TRMNL **Server implementation**, check out this repo: [github.com/bnussbau/laravel-trmnl-server](https://github.com/bnussbau/laravel-trmnl-server)
+
 ## Support ❤️
 Support the development of this package by purchasing a TRMNL device through our referral link: https://usetrmnl.com/?ref=laravel-trmnl.
 At checkout, use the code `laravel-trmnl` to receive a $15 **discount** on your purchase.
