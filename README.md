@@ -130,6 +130,7 @@ Publishes the database table required for storing authentication data.
 
 ```bash
 php artisan vendor:publish --tag="trmnl-migrations"
+php artisan migrate
 ```
 
 ### Render Markup
