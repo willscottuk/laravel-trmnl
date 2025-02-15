@@ -30,21 +30,11 @@ You can install the package via composer:
 composer require bnussbau/laravel-trmnl
 ```
 
-### Default Environment Variables
-
-```dotenv
-TRMNL_PLUGIN_TYPE=              # private | public
-TRMNL_DATA_STRATEGY=            # polling | webhook
-TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard [Private Plugins]
-TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard [Public Plugins]
-TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard [Public Plugins]
-```
-
 ### Optional Steps
 
 #### Publish Config
 
-Publish the config file using:
+Optionally, publish the config file using:
 
 ```bash
 php artisan vendor:publish --tag="trmnl-config"
@@ -52,7 +42,7 @@ php artisan vendor:publish --tag="trmnl-config"
 
 #### Publish Views
 
-Publish the views using:
+Optionally, publish the views using:
 
 ```bash
 php artisan vendor:publish --tag="trmnl-views"
@@ -67,9 +57,9 @@ The package can be configured through environment variables:
 ```dotenv
 TRMNL_PLUGIN_TYPE=              # private | public
 TRMNL_DATA_STRATEGY=            # polling | webhook
-TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard
-TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard
-TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard
+TRMNL_WEBHOOK_URL=              # grab from TRMNL Dashboard [Private Plugins]
+TRMNL_OAUTH_CLIENT_ID=          # grab from TRMNL Dashboard [Public Plugins]
+TRMNL_OAUTH_CLIENT_SECRET=      # grab from TRMNL Dashboard [Public Plugins]
 ```
 
 ## Plugin Development
