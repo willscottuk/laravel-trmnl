@@ -100,7 +100,7 @@ Facade to render markup which you can copy into the editor. See Section Blade Co
 ## Public Plugins
 ⚠️ This is work in progress and may not be ready for production use. ⚠️
 
-Refer to the [“Plugin Marketplace” section](https://docs.usetrmnl.com/go/plugin-marketplace/introduction) in the TRMNL documentation, paying close attention to the authentication flow. Always verify the authorization token for incoming manage or render requests to prevent security issues.
+Refer to the [“Plugin Marketplace” section](https://docs.usetrmnl.com/go/plugin-marketplace/introduction) in the TRMNL documentation, paying close attention to the authentication flow. Always verify the authorization token for incoming requests to prevent security issues.
 
 To enable this feature, add the following flag to your .env file:
 
