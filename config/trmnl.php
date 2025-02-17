@@ -43,7 +43,5 @@ return [
     |--------------------------------------------------------------------------
     | Features not yet ready for stable release.
     */
-    'feature_flags' => [
-        'public_plugin' => env('TRMNL_FEATURE_PUBLIC_PLUGIN', false),
-    ],
+    'feature_flags' => [],
 ];
