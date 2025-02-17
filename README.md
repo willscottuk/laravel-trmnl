@@ -6,9 +6,11 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/bnussbau/laravel-trmnl/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/bnussbau/laravel-trmnl/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/bnussbau/laravel-trmnl.svg?style=flat-square)](https://packagist.org/packages/bnussbau/laravel-trmnl)
 
-Laravel TRMNL is a package designed to streamline the development of both public and private [TRMNL](https://usetrmnl.com/?ref=laravel-trmnl) plugins. It supports data updates via webhooks or polling. For public plugins, it also provides built-in support for the TRMNL OAuth flow. Additionally, UI prototyping is made easier with the included Blade components.
+Laravel TRMNL is a package designed to streamline the development of both public and private plugins for the [TRMNL](https://usetrmnl.com/?ref=laravel-trmnl) E-ink device. It supports data updates via webhooks or polling. For public plugins, it also provides built-in support for the TRMNL OAuth flow. Additionally, UI prototyping is made easier with the included Blade components.
 
 If you are looking for a Laravel based TRMNL **Server implementation**, check out this repo: [github.com/bnussbau/laravel-trmnl-server](https://github.com/bnussbau/laravel-trmnl-server)
+
+![Screenshot](readme-screenshot.png)
 
 ## Support ❤️
 Support the development of this package by purchasing a TRMNL device through our referral link: https://usetrmnl.com/?ref=laravel-trmnl.
@@ -98,15 +100,9 @@ Use the markup editor on the TRMNL private plugin webapp or use the `stripMarkup
 Facade to render markup which you can copy into the editor. See Section Blade Components. 
 
 ## Public Plugins
-⚠️ This is work in progress and may not be ready for production use. ⚠️
+Refer to the [“Plugin Marketplace” section](https://docs.usetrmnl.com/go/plugin-marketplace/introduction) in the TRMNL documentation, paying close attention to the authentication flow. 
+Always verify the authorization token for incoming requests to prevent security issues. You can use `Auth::guard('trmnl')` to verify.
 
-Refer to the [“Plugin Marketplace” section](https://docs.usetrmnl.com/go/plugin-marketplace/introduction) in the TRMNL documentation, paying close attention to the authentication flow. Always verify the authorization token for incoming requests to prevent security issues.
-
-To enable this feature, add the following flag to your .env file:
-
-```env
-TRMNL_FEATURE_PUBLIC_PLUGIN=1
-```
 ### Configuration
 
 ```dotenv
@@ -177,13 +173,11 @@ Blade Compontens can help you generate markup code. Alternatively you can just u
 ```blade
 <x-trmnl::view>
     <x-trmnl::layout>
-        <x-trmnl::columns>
-            <x-trmnl::markdown gapSize="large">
-                <x-trmnl::title>Motivational Quote</x-trmnl::title>
-                <x-trmnl::content>“I love inside jokes. I hope to be a part of one someday.”</x-trmnl::content>
-                <x-trmnl::label variant="underline">Michael Scott</x-trmnl::label>
-            </x-trmnl::markdown>
-        </x-trmnl::columns>
+        <x-trmnl::markdown gapSize="large">
+            <x-trmnl::title>Motivational Quote</x-trmnl::title>
+            <x-trmnl::content>“I love inside jokes. I hope to be a part of one someday.”</x-trmnl::content>
+            <x-trmnl::label variant="underline">Michael Scott</x-trmnl::label>
+        </x-trmnl::markdown>
     </x-trmnl::layout>
     <x-trmnl::title-bar/>
 </x-trmnl::view>
