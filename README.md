@@ -15,6 +15,10 @@ If you are looking for a Laravel based TRMNL **Server implementation**, check ou
 ## Support ❤️
 Support the development of this package by purchasing a TRMNL device through our referral link: https://usetrmnl.com/?ref=laravel-trmnl.
 At checkout, use the code `laravel-trmnl` to receive a $15 **discount** on your purchase.
+
+### Plugins built with Laravel TRMNL
+* [trmnl-train-monitor](https://github.com/bnussbau/trmnl-train-monitor) by @bnussbau
+
 ## Features
 
 
