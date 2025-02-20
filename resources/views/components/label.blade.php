@@ -1,4 +1,4 @@
-@props(['variant', 'size'])
-<span class="label @if(isset($size) && $size === "small") label--small @endif @if(isset($variant)) label--{{$variant}}@endif">
+@props(['variant' => null, 'size' => null])
+<span {{ $attributes->class(['label', 'label--' . $size => isset($size) , 'label--' . $variant => isset($variant)]) }}>
     {{ $slot }}
 </span>
