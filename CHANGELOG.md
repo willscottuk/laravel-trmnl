@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-trmnl` will be documented in this file.
 
+## 0.1.4 - 2025-02-23
+
+### What's Changed
+
+* feat: added support for Laravel 12
+
+**Full Changelog**: https://github.com/bnussbau/laravel-trmnl/compare/0.1.3...0.1.4
+
 ## 0.1.3 - 2025-02-20
 
 ### Changes
