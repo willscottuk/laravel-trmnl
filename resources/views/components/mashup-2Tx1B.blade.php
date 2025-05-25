@@ -12,7 +12,9 @@
 
 <body class="environment trmnl">
   <div class="screen">
-    {{ $slot }}
+    <div class="mashup mashup--2Tx1B">
+      {{ $slot }}
+    </div>
   </div>
 </body>
 
