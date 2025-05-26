@@ -1,7 +1,4 @@
-@props(['size'])
-{{--<span class="value @if(isset($size)) value--{{$size}} @endif ">--}}
-{{--    {{ $slot }}--}}
-{{--</span>--}}
-<span {{ $attributes->merge(['class' => 'value' . (isset($size) ? ' value--' . $size : '')]) }}>
+@props(['size', 'pixel' => false])
+<span {{ $attributes->merge(['class' => 'value' . (isset($size) ? ' value--' . $size : '')]) }} {{if($pixel) ? 'data-pixel-perfect="true"' : ''}}>
     {{ $slot }}
 </span>
