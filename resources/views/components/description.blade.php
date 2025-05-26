@@ -1,2 +1,2 @@
 @props(['pixel' => false])
-<span class="description" {{if($pixel) ? 'data-pixel-perfect="true"' : ''}}>{{ $slot }}</span>
+<span class="description" {{ $pixel ? 'data-pixel-perfect="true"' : '' }}>{{ $slot }}</span>
